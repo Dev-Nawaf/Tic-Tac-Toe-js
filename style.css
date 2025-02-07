@@ -1,0 +1,214 @@
+:root {
+  --color-blue: #233d4a;
+  --color-light-blue: #a8bec9;
+  --color-dark-blue: #192a32;
+  --color-darker-blue: #112129;
+  --color-orange: #f2b237;
+  --color-aqua: #31c4be;
+  --border-radius: 1rem;
+  --grid-rows: 3;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  font-size: 1.6rem;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /*background-color: var(--color-dark-blue);*/
+  background-size: cover;
+  backdrop-filter: blur(5px);
+  overflow: hidden;
+}
+
+.container:before {
+  content: "";
+  position: absolute;
+  width: 130%;
+  height: 130%;
+  opacity: 0.8;
+  background: url(./pattern.jpg);
+  background-size: cover;
+  filter: blur(8px);
+  z-index: -1;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-rows), 100px);
+  grid-template-rows: repeat(var(--grid-rows), 100px);
+  margin: 0 auto;
+  gap: 1.5rem;
+}
+
+.cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 3em;
+  color: var(--color-aqua);
+  background-color: var(--color-blue);
+  border-radius: var(--border-radius);
+  isolation: isolate;
+  font-family: "Rubik Mono One", sans-serif;
+}
+
+.cell--X {
+  color: var(--color-aqua);
+}
+
+.cell--O {
+  color: var(--color-orange);
+}
+
+.value {
+  z-index: 1;
+  user-select: none;
+}
+
+.cell:before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  bottom: -0.4rem;
+  border-radius: calc(var(--border-radius) / 2);
+  background-color: var(--color-darker-blue);
+}
+
+.cell:after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: calc(var(--border-radius) / 2);
+  background-color: var(--color-blue);
+  transition: all 0.3s;
+}
+
+/* Status Message Styles */
+#status {
+  color: var(--color-aqua);
+  font-size: 2.4rem;
+  margin: 2rem 0;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  background-color: var(--color-blue);
+  transition: all 0.3s ease;
+}
+
+#status.thinking {
+  color: var(--color-orange);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Game Message Styles */
+.game-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-blue);
+  padding: 3rem 5rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  z-index: 100;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.game-message::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: var(--color-darker-blue);
+  border-radius: var(--border-radius);
+  z-index: -1;
+}
+
+.game-message.hidden {
+  display: none;
+}
+
+.message-text {
+  color: var(--color-aqua);
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  font-family: "Rubik Mono One", sans-serif;
+}
+
+.btn {
+  background: none;
+  border: 2px solid var(--color-aqua);
+  color: var(--color-aqua);
+  padding: 1rem 2rem;
+  border-radius: calc(var(--border-radius) / 2);
+  cursor: pointer;
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--color-aqua);
+  color: var(--color-blue);
+}
+
+/* Style the reset and select elements */
+#reset,
+select {
+  background: var(--color-blue);
+  border: 2px solid var(--color-aqua);
+  color: var(--color-aqua);
+  padding: 1rem 2rem;
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 1.6rem;
+  margin: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#reset:hover,
+select:hover {
+  background-color: var(--color-aqua);
+  color: var(--color-blue);
+}
+
+select {
+  background-color: var(--color-blue);
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  padding-right: 3rem;
+}
